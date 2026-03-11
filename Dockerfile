@@ -1,7 +1,10 @@
-FROM node:18-alpine
+FROM node:22-alpine
+# Line below added post security scan
+RUN apk update && apk upgrade 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --only=production
+# Added upgrade post security scan
+RUN npm install -g npm@latest
 COPY . .
 EXPOSE 3000
 USER node
